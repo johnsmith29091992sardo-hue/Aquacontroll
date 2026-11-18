@@ -1,0 +1,11 @@
+{
+  "name": "AquaControl — управление бассейном",
+  "short_name": "AquaControl",
+  "lang": "ru",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#071a2d",
+  "theme_color": "#071a2d",
+  "description": "Учёт бассейна, кассы, посетителей и тренеров"
+}
