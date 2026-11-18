@@ -6,9 +6,12 @@
 <div class="stats"><div class="stat"><strong id="savedStat">0/17</strong><span>Замеров заполнено</span></div><div class="stat"><strong id="peopleStat">—</strong><span>Последний замер, чел.</span></div><div class="stat"><strong id="peakStat">—</strong><span>Максимум за день</span></div></div>
 <div class="progress-card"><div class="progress-top"><span>Заполнение журнала за день</span><b id="progressText">0%</b></div><div class="track"><div class="fill" id="progressFill"></div></div></div>
 <div class="current-card"><div class="current-top"><div><div class="current-label" id="currentLabel">ТЕКУЩИЙ ЦИКЛ</div><div class="current-time" id="currentTime">—</div><div class="window" id="currentWindow">Окно замера: первые 15 минут часа</div></div><div class="current-count" id="currentCount">—<small>человек в чаше</small></div></div></div>
-<button class="trainer-trigger" id="trainerToggle" type="button">Тренер</button>
+<div class="section-title"><h2>Почасовые замеры</h2><small>06:00 — 23:00</small></div><div class="session-list" id="sessions"></div><section class="report-card"><h2>Завершение смены</h2><p>Сформируй общий отчёт по билетам, выручке и всем замерам за выбранную дату.</p><button class="report-btn" id="copyReport">Скопировать итог смены</button><pre class="report-preview" id="reportPreview"></pre></section>
+<div class="editor" id="editor"><div class="editor-head"><div><h2 id="editTitle">Замер</h2><div class="sub" id="editSub">Окно замера — первые 15 минут часа</div></div><button class="close" id="closeEditor" aria-label="Закрыть">×</button></div>
+<div class="label">Проданные билеты за этот сеанс</div><div class="ticket-fields" id="ticketFields"></div><div class="label">Сколько человек сейчас находится в чаше?</div><div class="counter"><button class="step" id="minus" aria-label="Уменьшить">−</button><div class="count"><input class="count-input" id="peopleInput" type="number" min="0" max="999" inputmode="numeric" value="0" aria-label="Количество людей"></div><button class="step" id="plus" aria-label="Увеличить">+</button></div>
+<button class="trainer-trigger" id="trainerToggle" type="button">＋ Добавить тренерский сеанс</button>
 <section class="trainer-panel" id="trainerPanel">
-<h2>Учёт тренерских занятий</h2>
+<h2>Тренерский сеанс</h2>
 <div class="label">Выбери тренера</div><select id="trainerSelect"></select>
 <div class="label">Вид тренировки</div><select id="trainerType"></select>
 <div class="trainer-grid"><div><div class="label">Количество людей</div><input id="trainerPeople" type="number" min="1" max="99" value="1"></div><div><div class="label">Цена за человека</div><input id="trainerPrice" type="text" readonly value="—"></div></div>
@@ -19,10 +22,7 @@
 <button class="trainer-action trainer-secondary" id="addTrainer" type="button">Сохранить нового тренера</button>
 <div class="trainer-note">Оставь цену пустой, если тренер не проводит этот вид занятий. Цены указаны за одного участника.</div>
 <div class="trainer-list" id="trainerRoster"></div>
-</section><div class="section-title"><h2>Почасовые замеры</h2><small>06:00 — 23:00</small></div><div class="session-list" id="sessions"></div><section class="report-card"><h2>Завершение смены</h2><p>Сформируй общий отчёт по билетам, выручке и всем замерам за выбранную дату.</p><button class="report-btn" id="copyReport">Скопировать итог смены</button><pre class="report-preview" id="reportPreview"></pre></section>
-<div class="editor" id="editor"><div class="editor-head"><div><h2 id="editTitle">Замер</h2><div class="sub" id="editSub">Окно замера — первые 15 минут часа</div></div><button class="close" id="closeEditor" aria-label="Закрыть">×</button></div>
-<div class="label">Проданные билеты за этот сеанс</div><div class="ticket-fields" id="ticketFields"></div><div class="label">Сколько человек сейчас находится в чаше?</div><div class="counter"><button class="step" id="minus" aria-label="Уменьшить">−</button><div class="count"><input class="count-input" id="peopleInput" type="number" min="0" max="999" inputmode="numeric" value="0" aria-label="Количество людей"></div><button class="step" id="plus" aria-label="Увеличить">+</button></div>
-<div class="label">Комментарий (необязательно)</div><textarea class="note" id="noteInput" rows="2" placeholder="Например: временно закрыта дорожка"></textarea><button class="save" id="saveBtn">Сохранить замер</button><div class="saved" id="saveMessage"></div></div>
+</section><div class="label">Комментарий (необязательно)</div><textarea class="note" id="noteInput" rows="2" placeholder="Например: временно закрыта дорожка"></textarea><button class="save" id="saveBtn">Сохранить замер</button><div class="saved" id="saveMessage"></div></div>
 <p class="footer-note">Контролёр проводит один замер в первые 15 минут каждого часа. Сеанс плавания длится 45 минут, последние 15 минут часа отведены на выход, душ и переодевание.</p></main>
 <script>
 const STORE='aquacontrol_controller_v3', $=id=>document.getElementById(id), pad=n=>String(n).padStart(2,'0'), dateKey=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()), today=dateKey(new Date());let data={};try{data=JSON.parse(localStorage.getItem(STORE)||'{}')||{}}catch(e){data={}}let selected=null;
