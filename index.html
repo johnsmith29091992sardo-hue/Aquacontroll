@@ -38,6 +38,7 @@ $('minus').onclick=()=>{$('peopleInput').value=Math.max(0,(Number($('peopleInput
 $('saveBtn').onclick=()=>{if(selected===null)return;let v=Number($('peopleInput').value);if(!Number.isInteger(v)||v<0||v>999){alert('Введи целое число от 0 до 999');return}let s=slots[selected],tickets={},ticketInputs=[...document.querySelectorAll('[data-ticket]')];for(let el of ticketInputs){let n=Number(el.value);if(!Number.isInteger(n)||n<0||n>999){alert('Количество билетов должно быть целым числом от 0 до 999');el.focus();return}tickets[el.dataset.ticket]=n}dayData()[selected]={...(dayData()[selected]||{}),...tickets,people:v,note:$('noteInput').value.trim(),updatedAt:new Date().toISOString()};saveData();$('saveMessage').textContent='Замер сохранён · '+new Date().toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'});$('editSub').textContent='Окно замера '+slots[selected].start+'–'+slots[selected].windowEnd+' · Замер сохранён';render()};
 
 
+function escHtml(value){return String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
 const TRAINER_ROSTER_KEY='aquacontrol_trainers_v1',TRAINER_SESSIONS_KEY='aquacontrol_trainer_sessions_v1';
 const defaultTrainers=[
 {name:'Ильяс Ольмезов',individual:1000,split:800,group:400},
